@@ -9,11 +9,11 @@ The baby dragons have to fight for their and their brothe's live againts multipl
 - One bomb stacking will end the game.
 - Dragon breath destroy the flying bombs.
 - Reload time for dragon breath.
-- Big end boss
-- The big boss will dead if you multiples dragon breath.
 
 ## Backlog
 - Choose multiple maps (diferents backgrounds and bosses).
+- Big end boss
+- The big boss will dead if you multiples dragon breath.
 
 ## Data structure
 # main.js
