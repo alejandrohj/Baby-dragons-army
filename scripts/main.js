@@ -42,6 +42,7 @@ function buildGameScreen(){
     game.drawCanvas();
 }
 function buildGameOverScreen(){
+    bodyElem.innerHTML = "";
     let mainDiv = document.createElement('div');
     mainDiv.classList.add('splash');
     mainDiv.innerHTML = `
@@ -54,9 +55,13 @@ function buildGameOverScreen(){
         <div class="startForm">
             <p>Name:</p>
             <input id="playerName">
-            <button class="btn start">START!</button>
+            <button class="btn restart">START!</button>
         </div>`;
     bodyElem.appendChild(mainDiv);
+    document.querySelector('.btn.restart').addEventListener('click',()=>{
+        bodyElem.innerHTML = "";
+        requestAnimationFrame(buildGameScreen);
+    });
 }
 //#endregion Methods
 

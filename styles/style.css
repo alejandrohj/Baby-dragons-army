@@ -30,7 +30,8 @@
     margin-bottom: 0;
     font-size: 18px;
 }
-.btn.start{
+.btn.start,
+.btn.restart{
     padding: 10px 20px;
     margin-top: 20px;
     background-color: #60966d;
