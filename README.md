@@ -59,7 +59,7 @@ The baby dragons have to fight for their and their brothe's live againts multipl
 
 # dragonBreath.js 
 
-- Cannonball () {
+- breath () {
     this.x;
     this.y;
     this.direction;
