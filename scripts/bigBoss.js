@@ -1,17 +1,19 @@
-class FlyingBomb {
+class BigBoss {
     constructor(canvas, positionY){
         this.canvas = canvas,
         this.ctx = canvas.getContext('2d'),
         this.bombImg = new Image(),
         this.positionX = 1000,
         this.positionY = positionY,
-        this.imgWidth = 70,
-        this.imgHeight = 40,
-        this.posIncrement = 0.5,
+        this.imgWidth = 280,
+        this.imgHeight = 160,
+        this.posIncrement = 0.2,
+        this.numberOfLives = 4,
         this.bombImg.src = 'images/EnemyBmb.png',
         this.bombDestroyed = false
     }
     draw(){
+        this.drawLive(this.numberOfLives);
         this.ctx.drawImage(this.bombImg,this.positionX,this.positionY,this.imgWidth,this.imgHeight);
     }
     move(){
@@ -22,12 +24,24 @@ class FlyingBomb {
     }
     bombExplosion(){
         this.bombImg.src ='images/StartExplosion.png';
-        this.imgWidth = 100;
-        this.imgHeight = 100;
+        this.imgWidth = 300;
+        this.imgHeight = 300;
         this.bombDestroyed = true;
-        setTimeout(()=>{
-          this.positionX = -100
-
-         },1000);
     }
+    drawLive(numberOfLives){
+        for(let i=0; i<numberOfLives; i++){
+        let num = i*31;
+        this.ctx.beginPath();
+        this.ctx.moveTo(850+num,420);
+        this.ctx.lineTo(880+num,420);
+        this.ctx.lineTo(880+num,435);
+        this.ctx.lineTo(850+num,435);
+        this.ctx.lineTo(850+num,420);
+        this.ctx.fillStyle = "#c4463b";
+        this.ctx.fill();
+        this.ctx.stroke();
+        this.ctx.closePath();
+        }
+    }
+
 }

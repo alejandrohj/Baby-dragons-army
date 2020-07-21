@@ -47,7 +47,6 @@ function buildGameOverScreen(){
     mainDiv.classList.add('splash');
     mainDiv.innerHTML = `
         <h1 id="title">Game Over</h1>
-        <h2>Your Score is:</h2>
         <p>Remember : Burn the bombs before them reach your mountain's home, be cafully these bombs have been sent by something.</p>
         <span>Arrow Up --> FlyUp</span><br>
         <span>Arrow Down --> FlyDown</span><br>
@@ -55,7 +54,29 @@ function buildGameOverScreen(){
         <div class="startForm">
             <p>Name:</p>
             <input id="playerName">
-            <button class="btn restart">START!</button>
+            <button class="btn restart">RESTART!</button>
+        </div>`;
+    bodyElem.appendChild(mainDiv);
+    document.querySelector('.btn.restart').addEventListener('click',()=>{
+        bodyElem.innerHTML = "";
+        requestAnimationFrame(buildGameScreen);
+    });
+}
+function buildGameWonScreen(){
+    bodyElem.innerHTML = "";
+    let mainDiv = document.createElement('div');
+    mainDiv.classList.add('splash');
+    mainDiv.innerHTML = `
+        <h1 id="title">YOU WIN!</h1>
+        <h2>You are the strongest baby dragon!</h2>
+        <p>YOU HAVE SAVED YOUR SIBLING'S LIVES</p>
+        <span>Arrow Up --> FlyUp</span><br>
+        <span>Arrow Down --> FlyDown</span><br>
+        <span>Space --> Dragon breath</span><br>
+        <div class="startForm">
+            <p>Name:</p>
+            <input id="playerName">
+            <button class="btn restart">RESTART!</button>
         </div>`;
     bodyElem.appendChild(mainDiv);
     document.querySelector('.btn.restart').addEventListener('click',()=>{

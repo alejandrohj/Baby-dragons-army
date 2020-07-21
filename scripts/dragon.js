@@ -14,20 +14,17 @@ class Dragon {
         this.breaths = [];
     }
     draw(){
-        this.ctx.drawImage(this.DragonImgUp,this.positionX,this.positionY,70,50);
-        //An his live:
         this.drawLive(this.dragonLives);
-
+        this.ctx.drawImage(this.DragonImgUp,this.positionX,this.positionY,70,50);
     }
     move(){
-        const once = {
-            once : true
-          };
         document.addEventListener('keydown',(event)=>{
+            if(this.positionY <= 500){
+                if(event.key ==='ArrowDown') this.positionY +=this.posIncrement; 
+            }
+            if(this.positionY >= 0){
                 if(event.key ==='ArrowUp') this.positionY -=this.posIncrement;
-                if(event.key ==='ArrowDown') this.positionY +=this.posIncrement;
-
-            
+            }
         });
     }
     breath(){
