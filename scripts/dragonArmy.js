@@ -40,7 +40,6 @@ class DragonArmy {
                 
                 this.breathsCounts[i]++;
                 this.dbreathSound.play();
-                
             }
             this.positionY +=  70;
         }

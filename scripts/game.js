@@ -29,7 +29,7 @@ class Game {
     }
     bigBossAppear(){
         this.bigBossIntervalId = setInterval(()=>{
-            this.bigBoss = new BigBoss(this.myCanvas, 200);
+            this.bigBoss = new BigBoss(this.myCanvas, 50 + Math.floor(Math.random()*400));
                 this.bigBossSound.play();
                 this.showBigBoss = true;
             
@@ -91,8 +91,8 @@ class Game {
                 this.bigBoss.bombExplosion();
                 this.bigBoss.draw();
                 this.expSound.play();
-                //for(let i=0; i<this.flyingBombs.length; i++)this.flyingBombs[i].bombExplosion();
-                //this.gameWon();
+                //for(let i=0; i<this.flyingBombs.length; i++)this.flyingBombs[i].bombExplosion(); //Uncoment in case you want to won at level 4
+                //if(this.level === 4)this.gameWon(); //Uncoment in case you want to won at level 4
                 this.level ++;
                 this.showBigBoss = false;
             }
@@ -139,7 +139,7 @@ class Game {
         // }
     }
     addFlyingBomb(){
-        let randomPost = Math.floor(Math.random()* 480);
+        let randomPost = Math.floor(Math.random()* 470);
         let newflyingBomb = new FlyingBomb(this.myCanvas,randomPost);
         this.flyingBombs.push(newflyingBomb);
     }
@@ -148,7 +148,7 @@ class Game {
         clearInterval(this.bigBossIntervalId);
         buildGameOverScreen();
     }
-    // gameWon(){
+    // gameWon(){ //Uncoment in case you want to won at level 4
     //     clearInterval(this.startIntervalId);
     //     setTimeout(()=>{
     //         buildGameWonScreen();

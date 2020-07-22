@@ -47,7 +47,7 @@ function buildGameOverScreen(){
     mainDiv.classList.add('splash');
     mainDiv.innerHTML = `
         <h1 id="title">Game Over</h1>
-        <h2>You are the strongest baby dragon</h2>
+        <h2>${playerName.value}!! you have reached the level: ${game.level}</h2>
         <p>Remember : Burn the bombs before them reach you, be cafully these bombs have been sent by something.</p>
         <span>Arrow Up --> FlyUp</span><br>
         <span>Arrow Down --> FlyDown</span><br>
@@ -64,29 +64,29 @@ function buildGameOverScreen(){
         requestAnimationFrame(buildGameScreen);
     });
 }
-function buildGameWonScreen(){
-    generalDiv.innerHTML = "";
-    mainDiv = document.createElement('div');
-    mainDiv.classList.add('splash');
-    mainDiv.innerHTML = `
-        <h1 id="title">YOU WIN!</h1>
-        <h2>You are the strongest baby dragon</h2>
-        <p>${playerName}!! you have reached the level:${game.level}</p>
-        <span>Arrow Up --> FlyUp</span><br>
-        <span>Arrow Down --> FlyDown</span><br>
-        <span>Space --> Dragon breath</span><br>
-        <span> q --> call The Dragon Army</span><br>
-        <div class="startForm">
-            <p>Name:</p>
-            <input id="playerName">
-            <button class="btn restart">RESTART!</button>
-        </div>`;
-    generalDiv.appendChild(mainDiv);
-    document.querySelector('.btn.restart').addEventListener('click',()=>{
-        generalDiv.innerHTML = "";
-        requestAnimationFrame(buildGameScreen);
-    });
-}
+// function buildGameWonScreen(){ //Uncoment in case you want to display game won at some point
+//     generalDiv.innerHTML = "";
+//     mainDiv = document.createElement('div');
+//     mainDiv.classList.add('splash');
+//     mainDiv.innerHTML = `
+//         <h1 id="title">YOU WIN!</h1>
+//         <h2>You are the strongest baby dragon</h2>
+//         <p></p>
+//         <span>Arrow Up --> FlyUp</span><br>
+//         <span>Arrow Down --> FlyDown</span><br>
+//         <span>Space --> Dragon breath</span><br>
+//         <span> q --> call The Dragon Army</span><br>
+//         <div class="startForm">
+//             <p>Name:</p>
+//             <input id="playerName">
+//             <button class="btn restart">RESTART!</button>
+//         </div>`;
+//     generalDiv.appendChild(mainDiv);
+//     document.querySelector('.btn.restart').addEventListener('click',()=>{
+//         generalDiv.innerHTML = "";
+//         requestAnimationFrame(buildGameScreen);
+//     });
+// }
 //#endregion Methods
 
 

@@ -13,7 +13,7 @@ class DragonBreath {
         this.positionX >=690? this.positionY = -100 : this.positionX += 2
     }
     collision(){
-        this.positionX = 1100;
+        //this.positionX = 1100;
         this.positionY = -400;
     }
 }

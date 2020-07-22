@@ -10,17 +10,15 @@ class BigBoss {
         this.posIncrement = 0.2,
         this.numberOfLives = 4,
         this.bombImg.src = 'images/EnemyBmb.png',
-        this.bombDestroyed = false
+        this.bombDestroyed = false,
+        this.showBigBoss = false
     }
     draw(){
         this.drawLive(this.numberOfLives);
         this.ctx.drawImage(this.bombImg,this.positionX,this.positionY,this.imgWidth,this.imgHeight);
     }
     move(){
-        if(this.positionX !=0 && !this.bombDestroyed) this.positionX -= this.posIncrement;
-        else {
-            this.bombExplosion();
-        }
+        this.positionX !=0 && !this.bombDestroyed ? this.positionX -= this.posIncrement : this.bombExplosion();
     }
     bombExplosion(){
         this.bombImg.src ='images/StartExplosion.png';
@@ -29,7 +27,7 @@ class BigBoss {
         this.bombDestroyed = true;
         setTimeout(()=>{
             this.positionY = -100
-  
+            this.showBigBoss = false
         },1000);
     }
     drawLive(numberOfLives){

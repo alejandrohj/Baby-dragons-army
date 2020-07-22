@@ -19,7 +19,7 @@ class Dragon {
     }
     move(){
         document.addEventListener('keydown',(event)=>{
-            if(this.positionY <= 500){
+            if(this.positionY <= 460){
                 if(event.key ==='ArrowDown') this.positionY +=this.posIncrement; 
             }
             if(this.positionY >= 0){
