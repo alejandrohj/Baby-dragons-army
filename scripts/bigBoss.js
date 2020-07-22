@@ -27,16 +27,20 @@ class BigBoss {
         this.imgWidth = 300;
         this.imgHeight = 300;
         this.bombDestroyed = true;
+        setTimeout(()=>{
+            this.positionY = -100
+  
+        },1000);
     }
     drawLive(numberOfLives){
         for(let i=0; i<numberOfLives; i++){
         let num = i*31;
         this.ctx.beginPath();
-        this.ctx.moveTo(850+num,420);
-        this.ctx.lineTo(880+num,420);
-        this.ctx.lineTo(880+num,435);
-        this.ctx.lineTo(850+num,435);
-        this.ctx.lineTo(850+num,420);
+        this.ctx.moveTo(this.positionX+40+num,this.positionY-50+20);
+        this.ctx.lineTo(this.positionX+70+num,this.positionY-50+20);
+        this.ctx.lineTo(this.positionX+70+num,this.positionY-50+35);
+        this.ctx.lineTo(this.positionX+40+num,this.positionY-50+35);
+        this.ctx.lineTo(this.positionX+40+num,this.positionY-50+20);
         this.ctx.fillStyle = "#c4463b";
         this.ctx.fill();
         this.ctx.stroke();

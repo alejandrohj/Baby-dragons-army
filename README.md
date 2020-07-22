@@ -17,57 +17,76 @@ The baby dragons have to fight for their and their brothe's live againts multipl
 
 ## Data structure
 # main.js
-
 - buildSplashScreen () {}
 - buildGameScreen () {}
 - buildGameOverScreen () {}
+- buildGameWonScreen(){}
 
 # game.js
 - Game () {}
 - starLoop () {}
-- checkCollisions () {}
 - addFlyingBomb () {}
-- clearCanvas () {}
+- bigBossAppear() {}
+- bigBossFigth(){}
 - updateCanvas () {}
 - drawCanvas () {}
 - GameOver () {}
+- GameWon () {}
 
 # dragon.js 
-
 - Dragon () {
-    this.x;
-    this.y;
-    this.direction;
-    this.size
+    this.positionX;
+    this.positionY;
+    this.dragonLives;
+    this.breaths;
 }
 - draw () {}
 - move () {}
 - breath () {}
 - checkScreenCollision () {}
+- drawLive(){}
 
 # flyingBomb.js 
-
 - FlyingBomb () {
-    this.x;
-    this.y;
-    this.direction;
-    this.size
+    this.positionX;
+    this.positionY;
+    this.bombDestroyed;
 }
 - draw () {}
 - move () {}
-- checkCollisionBotton () {}
+- bombExplosion(){}
+
+# bigBoss.js 
+- BigBoss () {
+    this.positionX;
+    this.positionY;
+    this.bombDestroyed;
+}
+- draw () {}
+- move () {}
+- bombExplosion(){}
+- drawLive(){}
 
 # dragonBreath.js 
-
 - breath () {
     this.x;
     this.y;
     this.direction;
-    this.size
 }
 - draw () {}
 - move () {}
 - checkCollisionTop () {}
+
+# dragonArmy.js 
+- DragonArmy () {
+    this.positionX;
+    this.positionY;
+    this.dragonLives;
+    this.breaths;
+}
+- armyCalled () {}
+- callArmy () {}
+- breath () {}
 
 ## States y States Transitions
 Definition of the different states and their transition (transition functions)
@@ -77,20 +96,20 @@ Definition of the different states and their transition (transition functions)
 - gameoverScreen
 - winScreen
 
-
 ## Task
 - main - buildDom
 - main - buildSplashScreen
 - main - addEventListener
 - main - buildGameScreen
 - main - buildGameOverScreen
+- main - buildGameWonScreen
 - game - startLoop
 - game - buildCanvas
 - game - updateCanvas
 - game - drawCanvas
 - flyingBomb - draw
 - flyingBomb - move
-- game - addTentacle
+- game - addFlyingBomb
 - dragon - draw
 - dragon - move
 - dragon - breath

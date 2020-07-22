@@ -10,8 +10,7 @@ class DragonBreath {
         this.ctx.drawImage(this.dbImg,this.positionX,this.positionY, 40,40);
     }
     move(){
-        this.positionX += 2
-        if(this.positionX >=800) this.positionY = -100;
+        this.positionX >=690? this.positionY = -100 : this.positionX += 2
     }
     collision(){
         this.positionX = 1100;
