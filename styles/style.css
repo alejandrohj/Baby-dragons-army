@@ -49,3 +49,23 @@
     display: flex;
     justify-content: center;
 }
+.classification{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /*border: 2px solid darkgreen;*/
+    padding: 30px;
+
+}
+.classification h3{
+    margin: 0px;
+    padding-top: 0px;
+}
+.topThree{
+    margin-bottom: 0px;
+    padding: 0;
+}
+.topThree li{
+    margin-bottom: 10px;
+}

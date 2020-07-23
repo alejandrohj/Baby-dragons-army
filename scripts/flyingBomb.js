@@ -15,7 +15,7 @@ class FlyingBomb {
         this.ctx.drawImage(this.bombImg,this.positionX,this.positionY,this.imgWidth,this.imgHeight);
     }
     move(){
-        this.positionX !=0 && !this.bombDestroyed? this.positionX -= this.posIncrement : this.bombExplosion();
+        !(this.positionX > 0 && this.positionX < 1) && !this.bombDestroyed? this.positionX -= this.posIncrement : this.bombExplosion();
     }
     bombExplosion(){
         this.bombImg.src ='images/Explosion.png';

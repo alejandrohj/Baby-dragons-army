@@ -7,6 +7,7 @@ class Game {
         this.expSound = new Audio(),
         this.bigBossSound = new Audio(),
         this.showBigBoss = false,
+        this.armyCall = false,
         this.startIntervalId,
         this.bigBossIntervalId,
         this.dragon,
@@ -52,6 +53,12 @@ class Game {
             this.bigBoss[i].move();
         }
     }
+    callArmy(){
+        document.addEventListener('keypress',(event)=>{
+            this.dragonArmy = new DragonArmy(this.myCanvas);
+            if(event.key === 'q' && !this.armUsed) this.armyCall = true;
+        });
+    }
     drawCanvas(){
         let theGameDiv = document.createElement('div');
         theGameDiv.classList.add('gamePanel');
@@ -61,13 +68,12 @@ class Game {
         this.ctx = this.myCanvas.getContext('2d');
         this.ctx.drawImage(this.bgImg,0,0,1000,500);
         this.dragon = new Dragon(this.myCanvas);
-        this.dragonArmy = new DragonArmy(this.myCanvas);
         this.addFlyingBomb();
         this.dragon.move();
         this.dragon.breath();
         //Start Game:
         this.bigBossAppear();
-        this.dragonArmy.callArmy(); //Add the callArmy listener
+        this.callArmy(); //Add the callArmy listener
         this.startLoop(this.updateCanvas);
     }
     updateCanvas = ()=>{
@@ -75,7 +81,7 @@ class Game {
         this.dragon.draw();
         this.displayLevel();
         //dragonArmy called
-        if(this.dragonArmy.armyCall && this.armyUsed == false) {
+        if(this.armyCall && this.armyUsed == false) {
             this.dragonArmy.armyCalled();
             for(let i=0; i<this.dragonArmy.breaths.length; i++){ //Breaths of the army
                 this.dragonArmy.breaths[i].move();
@@ -93,9 +99,11 @@ class Game {
             setTimeout(()=>{
                 // this.dragonArmy.armyCall = false;
                 this.armyUsed = true;
+                this.armyCall = false;
+                this.dragonArmy.breathsCol();
             },2700)
         }//Show the army
-        //Bigboss appear
+        //Bigboss appears
         if (this.showBigBoss){
             this.bigBossFigth();
             //Check the BB lives:
@@ -109,6 +117,7 @@ class Game {
                     //for(let i=0; i<this.flyingBombs.length; i++)this.flyingBombs[i].bombExplosion(); //Uncoment in case you want to won at level 4
                     //if(this.level === 4)this.gameWon(); //Uncoment in case you want to won at level 4
                     this.level ++;
+                    this.armyUsed = false;
                     this.showBigBoss = false;
                 }
             }
@@ -121,7 +130,9 @@ class Game {
             if(this.flyingBombs[i].positionX <= newBombPosition+(this.level - 1) * 0.25 && this.flyingBombs[i].positionX >= newBombPosition-(this.level - 1) * 0.25){
                 this.addFlyingBomb();
             }
-            if(this.flyingBombs[i].positionX == 1){this.dragon.dragonLives -= 1;}
+            if(this.flyingBombs[i].positionX <= 4 + (this.level - 1) * 0.25 && this.flyingBombs[i].positionX >= 4 - (this.level - 1) * 0.25){
+                this.dragon.dragonLives -= 1;
+            }
         }
         //let randomApp = Math.floor(Math.random()*10000);
         //if(randomApp == 1){this.addFlyingBomb();}

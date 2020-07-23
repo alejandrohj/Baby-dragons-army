@@ -20,7 +20,6 @@ class DragonArmy {
         this.positionX = 0,
         this.positionY = 40,
         this.dragonArmy = [this.greenDragon, this.blackDragon, this.brownDragon, this.yellowDragon, this.orangeDragon,this.pinkDragon, this.darkGreenDragon],
-        this.armyCall = false,
         this.breaths =[],
         this.numberOfbreaths = 1,
         this.breathsCounts = [0,0,0,0,0,0,0] //Have to be the same length of dragonArmy
@@ -37,17 +36,15 @@ class DragonArmy {
                     let newBreath = new DragonBreath(this.ctx,this.positionX - separation,this.positionY + separation);
                     this.breaths.push(newBreath);
                 }
-                
                 this.breathsCounts[i]++;
                 this.dbreathSound.play();
             }
             this.positionY +=  70;
         }
     }
-    callArmy(){
-        document.addEventListener('keypress',(event)=>{
-            console.log(event.key);
-            if(event.key === 'q') this.armyCall = true;
-        });
+    breathsCol(){
+        for(let v=0; v<this.breaths.length; v++){
+            this.breaths[v].collision();
+        }
     }
 }

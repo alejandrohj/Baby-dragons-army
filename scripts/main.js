@@ -9,7 +9,8 @@ let mainDiv;
 let dragon;
 let game;
 let flyingBombs;
-let topThree =JSON.parse(localStorage.getItem('top'))
+let topThree =JSON.parse(localStorage.getItem('top'));
+let post;
 
 let bgImg = new Image();
 bgImg.src = 'images/bgImg.png';
@@ -59,7 +60,11 @@ function buildGameOverScreen(){
             <input id="playerName">
             <button class="btn restart">RESTART!</button>
         </div>
-        <ul class="topThree"></ul>`;
+        <div class="classification">
+        <h3>BEST 3 GAMES</h3>
+        <ul class="topThree">
+        </ul>
+        </div>`;
     generalDiv.appendChild(mainDiv);
     topThreePlayersUpdate(playerName.value,game.level);
     document.querySelector('.btn.restart').addEventListener('click',()=>{
@@ -92,31 +97,43 @@ function buildGameOverScreen(){
 // }
 
 function topThreePlayersUpdate(player, level){
-    let newPlayer = {
+    let Player = {
+        name: 'none',
+        levelReached: 0,
+        playDate: new Date()
+    }
+    let newTopPlayer = {
         name: player,
         levelReached: level,
         playDate: new Date()
     }
+    console.log(player);
     let topThreeList = document.querySelector('.topThree');
     let newListMember = document.createElement('li');
     if(topThree == null){
         console.log('its null'+ topThree);
-        topThree = [newPlayer];
-        newListMember.innerText = `${newPlayer.name}: level reached: ${newPlayer.levelReached} Date: ${newPlayer.playDate}`;
+        topThree = [newTopPlayer,Player,Player];
+        newListMember.innerText = `${newTopPlayer.name}: level reached: ${newTopPlayer.levelReached} Date: ${newTopPlayer.playDate}`;
         topThreeList.appendChild(newListMember);
     }
     else{
+        let playerAdded = false;
         for(let i=0; i<topThree.length; i++){
-            if(topThree[i].levelReached < level) {
-                topThree.unshift(newPlayer);
-                if(topThree.length >=3)topThree.pop();
-                break;
+            post = i;
+            if(topThree[i].levelReached < level && playerAdded == false) {
+                    topThree.splice(post,0,newTopPlayer);
+                    topThree.pop();
+                    playerAdded = true;
             }
+            console.log(topThree);
             let name = topThree[i].name;
             let levelP = topThree[i].levelReached;
             let date = topThree[i].playDate;
+            let newListMember = document.createElement('li');
             newListMember.innerText = `${name}: level reached: #${levelP}# Date: ${date}`;
+            console.log(newListMember);
             topThreeList.appendChild(newListMember);
+            console.log(topThreeList)
         }
     }
     localStorage.clear();
