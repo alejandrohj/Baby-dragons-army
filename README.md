@@ -33,6 +33,9 @@ The baby dragons have to fight for their and their brothe's live againts multipl
 - drawCanvas () {}
 - GameOver () {}
 - GameWon () {}
+- callArmy() {}
+- displayLevel() {}
+- displayArmyAvailable() {}
 
 # dragon.js 
 - Dragon () {
@@ -44,7 +47,6 @@ The baby dragons have to fight for their and their brothe's live againts multipl
 - draw () {}
 - move () {}
 - breath () {}
-- checkScreenCollision () {}
 - drawLive(){}
 
 # flyingBomb.js 
@@ -70,9 +72,8 @@ The baby dragons have to fight for their and their brothe's live againts multipl
 
 # dragonBreath.js 
 - breath () {
-    this.x;
-    this.y;
-    this.direction;
+    this.positionX;
+    this.postitionY;
 }
 - draw () {}
 - move () {}
@@ -86,7 +87,6 @@ The baby dragons have to fight for their and their brothe's live againts multipl
     this.breaths;
 }
 - armyCalled () {}
-- callArmy () {}
 - breath () {}
 
 ## States y States Transitions
@@ -117,9 +117,15 @@ Definition of the different states and their transition (transition functions)
 - game - addFlyingBomb 
 - flyingBomb  - draw
 - flyingBomb  - move
+- bigBoss - draw
+- bigBoss - move
+- bigBoss - drawLives
 - game - checkCollision
 - game - GameOver
 - game - addEventListener
+- game - callArmy() {}
+- game - displayLevel() {}
+- game - displayArmyAvailable() {}
 
 ## Links
 
@@ -130,10 +136,10 @@ Definition of the different states and their transition (transition functions)
 
 ### Git
 URls for the project repo and deploy
-[Link Repo](http://github.com)
-[Link Deploy](http://github.com)
+[Link Repo](https://github.com/alejandrohj/Baby-dragons-army)
+[Link Deploy](https://alejandrohj.github.io/Baby-dragons-army/)
 
 
 ### Slides
 URls for the project presentation (slides)
-[Link Slides.com](http://slides.com)
+[Link Slides.com](https://docs.google.com/presentation/d/1X_rsPNex0mtRrENz_0qUoCfA_wMbBx9z84sk4BKgMO8/edit?usp=sharing)

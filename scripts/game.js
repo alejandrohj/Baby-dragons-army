@@ -57,8 +57,6 @@ class Game {
         document.addEventListener('keypress',(event)=>{
             this.dragonArmy = new DragonArmy(this.myCanvas);
             if(event.key === 'q' && this.armyUsed >= 1) this.armyCall = true;
-            console.log(this.armyUsed)
-            console.log(this.armyCall)
         });
     }
     drawCanvas(){
@@ -83,7 +81,8 @@ class Game {
         this.dragon.draw();
         this.displayLevel();
         //dragonArmy called
-        if(this.armyUsed > 0) this.displayArmyAvailable(); //Show the user that the army is available
+        this.displayArmyAvailable(); //Show the user that the army is available
+        //
         if(this.armyCall && this.armyUsed > 0) {
             this.dragonArmy.armyCalled();
             for(let i=0; i<this.dragonArmy.breaths.length; i++){ //Breaths of the army
@@ -93,7 +92,7 @@ class Game {
                     if((this.dragonArmy.breaths[i].positionX + this.collRge >= this.flyingBombs[j].positionX && this.dragonArmy.breaths[i].positionX - this.collRge <= this.flyingBombs[j].positionX)
                         && (this.dragonArmy.breaths[i].positionY + this.collRge >= this.flyingBombs[j].positionY && this.dragonArmy.breaths[i].positionY - this.collRge <= this.flyingBombs[j].positionY )){
                         this.flyingBombs[j].bombExplosion();
-                        this.dragonArmy.breaths[i].collision();s
+                        this.dragonArmy.breaths[i].collision();
                         this.expSound.play();
                         //this.bombDestroyed = true;
                     }
@@ -101,8 +100,8 @@ class Game {
             }
             setTimeout(()=>{
                 // this.dragonArmy.armyCall = false;
-                this.armyUsed --;
                 this.armyCall = false;
+                this.armyUsed =0;
                 this.dragonArmy.breathsCol();
             },2700)
         }//Show the army
@@ -120,8 +119,9 @@ class Game {
                     //for(let i=0; i<this.flyingBombs.length; i++)this.flyingBombs[i].bombExplosion(); //Uncoment in case you want to won at level 4
                     //if(this.level === 4)this.gameWon(); //Uncoment in case you want to won at level 4
                     this.level ++;
-                    this.armyUsed ++;
-                    if(this.level >=3) this.armyUsed ++;
+                    this.armyUsed = 1;
+                    if(this.level >=3) this.armyUsed +=1;
+                    if(this.level==1) this.addFlyingBomb();
                     this.showBigBoss = false;
                 }
             }
@@ -199,11 +199,22 @@ class Game {
         this.ctx.closePath();
     }
     displayArmyAvailable(){
-        this.ctx.beginPath();
-        this.ctx.font = 'bold 14px verdana';
-        this.ctx.fillStyle = 'green';
-        this.ctx.fillText(`Armies available: ${this.armyUsed}`,800,25);
-        this.ctx.stroke();
-        this.ctx.closePath();
+        // if(this.armyUsed < 0 ){
+        //     this.ctx.beginPath();
+        //     this.ctx.font = 'bold 14px verdana';
+        //     this.ctx.fillStyle = 'green';
+        //     this.ctx.fillText(`Armies available: 0`,800,25);
+        //     this.ctx.stroke();
+        //     this.ctx.closePath();
+        // }
+        // else{
+            this.ctx.beginPath();
+            this.ctx.font = 'bold 14px verdana';
+            this.ctx.fillStyle = 'green';
+            this.ctx.fillText(`Armies available: ${this.armyUsed}`,800,25);
+            this.ctx.stroke();
+            this.ctx.closePath();
+       // }
+        
     }
 }
