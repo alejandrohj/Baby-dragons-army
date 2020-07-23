@@ -45,7 +45,7 @@ class Game {
         this.bigBossSound.play();
         this.showBigBoss = true;
             
-        },20000);
+        },25000);
     }
     bigBossFigth(){
         for(let i=0; i<this.bigBoss.length; i++){
@@ -56,7 +56,14 @@ class Game {
     callArmy(){
         document.addEventListener('keypress',(event)=>{
             this.dragonArmy = new DragonArmy(this.myCanvas);
-            if(event.key === 'q' && this.armyUsed >= 1) this.armyCall = true;
+            if(event.key === 'q' && this.armyUsed >= 1) {
+                this.armyCall = true;
+                setTimeout(()=>{
+                    // this.dragonArmy.armyCall = false;
+                    this.armyCall -=1;
+                },3200)
+            }
+
         });
     }
     drawCanvas(){
@@ -119,7 +126,7 @@ class Game {
                     //for(let i=0; i<this.flyingBombs.length; i++)this.flyingBombs[i].bombExplosion(); //Uncoment in case you want to won at level 4
                     //if(this.level === 4)this.gameWon(); //Uncoment in case you want to won at level 4
                     this.level ++;
-                    this.armyUsed = 1;
+                    this.armyUsed += 1;
                     if(this.level >=3) this.armyUsed +=1;
                     if(this.level==1) this.addFlyingBomb();
                     this.showBigBoss = false;
