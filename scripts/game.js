@@ -30,21 +30,21 @@ class Game {
     bigBossAppear(){
         this.bigBossIntervalId = setInterval(()=>{
             
-        if(this.level > 3){
+        if(this.level > 2){
             let newBigBoss = new BigBoss(this.myCanvas, 1000, 20 + Math.floor(Math.random()*30));
             this.bigBoss.push(newBigBoss);
             newBigBoss = new BigBoss(this.myCanvas, 1000, 260 + Math.floor(Math.random()*120));
             this.bigBoss.push(newBigBoss);
         }
         else{
-            let newBigBoss = new BigBoss(this.myCanvas, 1000, 50 + Math.floor(Math.random()*400));
+            let newBigBoss = new BigBoss(this.myCanvas, 1000, 50 + Math.floor(Math.random()*290));
             this.bigBoss.push(newBigBoss);
         }
                 
         this.bigBossSound.play();
         this.showBigBoss = true;
             
-        },30000);
+        },20000);
     }
     bigBossFigth(){
         for(let i=0; i<this.bigBoss.length; i++){
@@ -117,16 +117,16 @@ class Game {
         for(let i=0; i<this.flyingBombs.length; i++){
             this.flyingBombs[i].draw();
             this.flyingBombs[i].move();
-            let newBombPosition = 700 + this.level*50;
-            if(this.flyingBombs[i].positionX == newBombPosition){
+            let newBombPosition = 750 + this.level*25;
+            if(this.flyingBombs[i].positionX <= newBombPosition+(this.level - 1) * 0.25 && this.flyingBombs[i].positionX >= newBombPosition-(this.level - 1) * 0.25){
                 this.addFlyingBomb();
             }
             if(this.flyingBombs[i].positionX == 1){this.dragon.dragonLives -= 1;}
         }
-        let randomApp = Math.floor(Math.random()*5000);
-        if(randomApp == 1){this.addFlyingBomb();}
+        //let randomApp = Math.floor(Math.random()*10000);
+        //if(randomApp == 1){this.addFlyingBomb();}
         //dragon breath and flying bomb reached
-        for(let i=0; i < this.dragon.breaths.length; i++){
+        for(let i=0; i < this.dragon.breaths.length; i++){ 
             this.dragon.breaths[i].move();
             this.dragon.breaths[i].draw();
             for(let j=0; j<this.flyingBombs.length; j++){
@@ -158,8 +158,10 @@ class Game {
         // }
     }
     addFlyingBomb(){
+        let bombSpeed = 0.5;
         let randomPost = Math.floor(Math.random()* 470);
         let newflyingBomb = new FlyingBomb(this.myCanvas,randomPost);
+        newflyingBomb.posIncrement = bombSpeed + (this.level - 1) * 0.1;
         this.flyingBombs.push(newflyingBomb);
     }
     gameOver(){

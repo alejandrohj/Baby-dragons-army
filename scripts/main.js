@@ -9,7 +9,7 @@ let mainDiv;
 let dragon;
 let game;
 let flyingBombs;
-let topThree =[];
+let topThree =JSON.parse(localStorage.getItem('top'))
 
 let bgImg = new Image();
 bgImg.src = 'images/bgImg.png';
@@ -59,9 +59,9 @@ function buildGameOverScreen(){
             <input id="playerName">
             <button class="btn restart">RESTART!</button>
         </div>
-        <ul class=".topThree"></ul>`;
+        <ul class="topThree"></ul>`;
     generalDiv.appendChild(mainDiv);
-    //topThreePlayersUpdate(playerName.value,game.level);
+    topThreePlayersUpdate(playerName.value,game.level);
     document.querySelector('.btn.restart').addEventListener('click',()=>{
         generalDiv.innerHTML = "";
         requestAnimationFrame(buildGameScreen);
@@ -91,31 +91,41 @@ function buildGameOverScreen(){
 //     });
 // }
 
-// function topThreePlayersUpdate(player, level){
-//     let newPlayer = {
-//         name: player,
-//         levelReached: level,
-//         playDate: new Date()
-//     }
-//     let topThreeList = document.querySelector('.topThree');
-//     let newListMember = document.createElement('li');
-//     if(topThree == 0){
-//         topThree[0] = newPlayer;
-//         newListMember.innerText = `${topThree[0].name}: level reached: ${topThree[0].levelReached} Date: ${topThree[0].playDate}`;
-//     }
-//     else{
-//         for(let i=0; i<topThree.length; i++){
-//             if(topThree[i].levelReached < level) {
-//                 topThree.unshift(newPlayer);
-//                 topThree.pop();
-//                 newListMember.innerText = `${topThree[i].name}: level reached: ${topThree[i].levelReached} Date: ${topThree[i].playDate}`;
-//                 topThreeList.appendChild(newListMember);
-//                 break;
-//             }
-//         }
-//     }
-
-// }
+function topThreePlayersUpdate(player, level){
+    let newPlayer = {
+        name: player,
+        levelReached: level,
+        playDate: new Date()
+    }
+    let topThreeList = document.querySelector('.topThree');
+    let newListMember = document.createElement('li');
+    if(topThree == null){
+        console.log('its null'+ topThree);
+        topThree = [newPlayer];
+        newListMember.innerText = `${newPlayer.name}: level reached: ${newPlayer.levelReached} Date: ${newPlayer.playDate}`;
+        topThreeList.appendChild(newListMember);
+    }
+    else{
+        for(let i=0; i<topThree.length; i++){
+            if(topThree[i].levelReached < level) {
+                topThree.unshift(newPlayer);
+                if(topThree.length >=3)topThree.pop();
+                break;
+            }
+            let name = topThree[i].name;
+            let levelP = topThree[i].levelReached;
+            let date = topThree[i].playDate;
+            newListMember.innerText = `${name}: level reached: #${levelP}# Date: ${date}`;
+            topThreeList.appendChild(newListMember);
+        }
+    }
+    localStorage.clear();
+    // console.log(topThreeList);
+    // console.log(topThree);
+    // console.log(newListMember);
+    localStorage.setItem('top',JSON.stringify(topThree))
+    //console.log(localStorage.getItem('top'));
+}
 //#endregion Methods
 
 
