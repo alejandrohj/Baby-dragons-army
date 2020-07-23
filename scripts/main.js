@@ -107,11 +107,9 @@ function topThreePlayersUpdate(player, level){
         levelReached: level,
         playDate: new Date()
     }
-    console.log(player);
     let topThreeList = document.querySelector('.topThree');
     let newListMember = document.createElement('li');
     if(topThree == null){
-        console.log('its null'+ topThree);
         topThree = [newTopPlayer,Player,Player];
         let fixedDate = new Date(newTopPlayer.playDate).toJSON().slice(0, 10)
         newListMember.innerText = `${newTopPlayer.name}: level reached: ${newTopPlayer.levelReached} Date: ${fixedDate}`;

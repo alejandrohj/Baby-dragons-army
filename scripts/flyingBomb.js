@@ -25,6 +25,6 @@ class FlyingBomb {
         setTimeout(()=>{
           this.positionX = -100
 
-         },1000);
+         },800);
     }
 }

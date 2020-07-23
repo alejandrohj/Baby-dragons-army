@@ -18,17 +18,13 @@ class BigBoss {
         this.ctx.drawImage(this.bombImg,this.positionX,this.positionY,this.imgWidth,this.imgHeight);
     }
     move(){
-        this.positionX !=0 && !this.bombDestroyed ? this.positionX -= this.posIncrement : this.bombExplosion();
+        !this.bombDestroyed ? this.positionX -= this.posIncrement : this.bombExplosion();
     }
     bombExplosion(){
-        this.bombImg.src ='images/StartExplosion.png';
+        this.bombImg.src ='images/Explosion.png';
         this.imgWidth = 300;
         this.imgHeight = 300;
         this.bombDestroyed = true;
-        setTimeout(()=>{
-            this.positionY = -100
-            this.showBigBoss = false
-        },1000);
     }
     drawLive(numberOfLives){
         for(let i=0; i<numberOfLives; i++){

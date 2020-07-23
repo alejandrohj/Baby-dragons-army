@@ -31,7 +31,7 @@ class Game {
     bigBossAppear(){
         this.bigBossIntervalId = setInterval(()=>{
             
-        if(this.level > 2){
+        if(this.level >2){
             let newBigBoss = new BigBoss(this.myCanvas, 1000, 20 + Math.floor(Math.random()*30));
             this.bigBoss.push(newBigBoss);
             newBigBoss = new BigBoss(this.myCanvas, 1000, 260 + Math.floor(Math.random()*120));
@@ -56,12 +56,12 @@ class Game {
     callArmy(){
         document.addEventListener('keypress',(event)=>{
             this.dragonArmy = new DragonArmy(this.myCanvas);
-            if(event.key === 'q' && this.armyUsed >= 1) {
+            if(event.key === 'q' && this.armyUsed >= 1 && !this.armyCall) {
                 this.armyCall = true;
                 setTimeout(()=>{
                     // this.dragonArmy.armyCall = false;
-                    this.armyCall -=1;
-                },3200)
+                    this.armyUsed -=1;
+                },2700)
             }
 
         });
@@ -108,7 +108,6 @@ class Game {
             setTimeout(()=>{
                 // this.dragonArmy.armyCall = false;
                 this.armyCall = false;
-                this.armyUsed =0;
                 this.dragonArmy.breathsCol();
             },2700)
         }//Show the army
@@ -119,17 +118,22 @@ class Game {
             for(let i=0; i<this.bigBoss.length; i++){
                 if(this.bigBoss[i].positionX <= 5) {this.gameOver();}
                 if(this.bigBoss[i].numberOfLives === 0){
-                    this.bigBoss[i].bombExplosion();
+                    //this.bigBoss[i].bombExplosion();
                     this.bigBoss[i].draw();
-                    this.bigBoss.splice(i,1);
+                    this.bigBoss[i].bombExplosion();
                     this.expSound.play();
                     //for(let i=0; i<this.flyingBombs.length; i++)this.flyingBombs[i].bombExplosion(); //Uncoment in case you want to won at level 4
                     //if(this.level === 4)this.gameWon(); //Uncoment in case you want to won at level 4
-                    this.level ++;
+                    //if(this.level ==1) this.addFlyingBomb();
                     this.armyUsed += 1;
                     if(this.level >=3) this.armyUsed +=1;
-                    if(this.level==1) this.addFlyingBomb();
-                    this.showBigBoss = false;
+                    setTimeout(()=>{
+                        this.positionY = 600
+                        this.bigBoss.splice(i,1);
+                        if(this.bigBoss.length == 0) this.level ++;
+                    },800);
+                    this.bigBoss[i].numberOfLives = -1
+                    //if(this.bigBoss.length == 0)this.showBigBoss = false;
                 }
             }
         }
@@ -138,7 +142,10 @@ class Game {
             this.flyingBombs[i].draw();
             this.flyingBombs[i].move();
             let newBombPosition = 750 + this.level*25;
-            if(this.flyingBombs[i].positionX <= newBombPosition+(this.level - 1) * 0.25 && this.flyingBombs[i].positionX >= newBombPosition-(this.level - 1) * 0.25){
+            if(this.flyingBombs[i].positionX <= newBombPosition+(this.level - 1) * 0.25 && this.flyingBombs[i].positionX >= newBombPosition-(this.level - 1) * 0.25 && this.level < 4){
+                this.addFlyingBomb();
+            }
+            else if(this.level >=4 && this.flyingBombs[i].positionX <= newBombPosition+(this.level - 2) * 0.25 && this.flyingBombs[i].positionX >= newBombPosition-(this.level - 2) * 0.25){
                 this.addFlyingBomb();
             }
             if(this.flyingBombs[i].positionX <= 4 + (this.level - 1) * 0.25 && this.flyingBombs[i].positionX >= 4 - (this.level - 1) * 0.25){
@@ -183,7 +190,8 @@ class Game {
         let bombSpeed = 0.5;
         let randomPost = Math.floor(Math.random()* 470);
         let newflyingBomb = new FlyingBomb(this.myCanvas,randomPost);
-        newflyingBomb.posIncrement = bombSpeed + (this.level - 1) * 0.1;
+        if(this.level <=3) newflyingBomb.posIncrement = bombSpeed + (this.level - 1) * 0.1;
+        else newflyingBomb.posIncrement = bombSpeed + (this.level - 1.5) * 0.1;
         this.flyingBombs.push(newflyingBomb);
     }
     gameOver(){
