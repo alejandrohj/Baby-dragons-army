@@ -21,6 +21,7 @@ The baby dragons have to fight for their and their brothe's live againts multipl
 - buildGameScreen () {}
 - buildGameOverScreen () {}
 - buildGameWonScreen(){}
+- topThreePlayersUpdate(){}
 
 # game.js
 - Game () {}

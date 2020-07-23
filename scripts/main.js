@@ -113,7 +113,8 @@ function topThreePlayersUpdate(player, level){
     if(topThree == null){
         console.log('its null'+ topThree);
         topThree = [newTopPlayer,Player,Player];
-        newListMember.innerText = `${newTopPlayer.name}: level reached: ${newTopPlayer.levelReached} Date: ${newTopPlayer.playDate}`;
+        let fixedDate = new Date(newTopPlayer.playDate).toJSON().slice(0, 10)
+        newListMember.innerText = `${newTopPlayer.name}: level reached: ${newTopPlayer.levelReached} Date: ${fixedDate}`;
         topThreeList.appendChild(newListMember);
     }
     else{
@@ -129,8 +130,9 @@ function topThreePlayersUpdate(player, level){
             let name = topThree[i].name;
             let levelP = topThree[i].levelReached;
             let date = topThree[i].playDate;
+            let fixedDate = new Date(date).toJSON().slice(0, 10)
             let newListMember = document.createElement('li');
-            newListMember.innerText = `${name}: level reached: #${levelP}# Date: ${date}`;
+            newListMember.innerText = `${name}: level reached: #${levelP}# Date: ${fixedDate}`;
             console.log(newListMember);
             topThreeList.appendChild(newListMember);
             console.log(topThreeList)

@@ -9,12 +9,18 @@ class Dragon {
         this.positionY = 100,
         this.posIncrement = 20,
         this.dragonLives = 4,
-        this.DragonImgUp.src = 'images/DragonBlue1.png',
+        this.DragonImgUp.src,
         this.dbreathSound.src = 'sounds/dragonBreath.wav',
-        this.breaths = [];
+        this.breaths = [],
+        this.fly = true,
+        this.dragonsIntervalId = setInterval(()=>{
+            this.DragonImgUp.src = this.fly ? 'images/DragonBlue1.png' : 'images/DragonBlue2.png'
+            this.fly = !this.fly
+        }, 300);
     }
     draw(){
         this.drawLive(this.dragonLives);
+
         this.ctx.drawImage(this.DragonImgUp,this.positionX,this.positionY,70,50);
     }
     move(){
@@ -51,4 +57,5 @@ class Dragon {
         this.ctx.closePath();
         }
     }
+
 }  

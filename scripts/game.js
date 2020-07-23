@@ -19,7 +19,7 @@ class Game {
         this.bigBossSound.src = 'sounds/BigBossSound.flac',
         this.collRge = 20,
         this.bombDestroyed = false,
-        this.armyUsed = false,
+        this.armyUsed = 1,
         this.level  = 1
     }
     startLoop = (callBack)=>{
@@ -56,7 +56,9 @@ class Game {
     callArmy(){
         document.addEventListener('keypress',(event)=>{
             this.dragonArmy = new DragonArmy(this.myCanvas);
-            if(event.key === 'q' && !this.armUsed) this.armyCall = true;
+            if(event.key === 'q' && this.armyUsed >= 1) this.armyCall = true;
+            console.log(this.armyUsed)
+            console.log(this.armyCall)
         });
     }
     drawCanvas(){
@@ -81,7 +83,8 @@ class Game {
         this.dragon.draw();
         this.displayLevel();
         //dragonArmy called
-        if(this.armyCall && this.armyUsed == false) {
+        if(this.armyUsed > 0) this.displayArmyAvailable(); //Show the user that the army is available
+        if(this.armyCall && this.armyUsed > 0) {
             this.dragonArmy.armyCalled();
             for(let i=0; i<this.dragonArmy.breaths.length; i++){ //Breaths of the army
                 this.dragonArmy.breaths[i].move();
@@ -90,7 +93,7 @@ class Game {
                     if((this.dragonArmy.breaths[i].positionX + this.collRge >= this.flyingBombs[j].positionX && this.dragonArmy.breaths[i].positionX - this.collRge <= this.flyingBombs[j].positionX)
                         && (this.dragonArmy.breaths[i].positionY + this.collRge >= this.flyingBombs[j].positionY && this.dragonArmy.breaths[i].positionY - this.collRge <= this.flyingBombs[j].positionY )){
                         this.flyingBombs[j].bombExplosion();
-                        this.dragonArmy.breaths[i].collision();
+                        this.dragonArmy.breaths[i].collision();s
                         this.expSound.play();
                         //this.bombDestroyed = true;
                     }
@@ -98,7 +101,7 @@ class Game {
             }
             setTimeout(()=>{
                 // this.dragonArmy.armyCall = false;
-                this.armyUsed = true;
+                this.armyUsed --;
                 this.armyCall = false;
                 this.dragonArmy.breathsCol();
             },2700)
@@ -117,7 +120,8 @@ class Game {
                     //for(let i=0; i<this.flyingBombs.length; i++)this.flyingBombs[i].bombExplosion(); //Uncoment in case you want to won at level 4
                     //if(this.level === 4)this.gameWon(); //Uncoment in case you want to won at level 4
                     this.level ++;
-                    this.armyUsed = false;
+                    this.armyUsed ++;
+                    if(this.level >=3) this.armyUsed ++;
                     this.showBigBoss = false;
                 }
             }
@@ -191,6 +195,14 @@ class Game {
         this.ctx.font = 'bold 16px verdana';
         this.ctx.fillStyle = 'white';
         this.ctx.fillText(`Level : ${this.level}`,40,20);
+        this.ctx.stroke();
+        this.ctx.closePath();
+    }
+    displayArmyAvailable(){
+        this.ctx.beginPath();
+        this.ctx.font = 'bold 14px verdana';
+        this.ctx.fillStyle = 'green';
+        this.ctx.fillText(`Armies available: ${this.armyUsed}`,800,25);
         this.ctx.stroke();
         this.ctx.closePath();
     }
