@@ -10,7 +10,7 @@ class Game {
         this.startIntervalId,
         this.bigBossIntervalId,
         this.dragon,
-        this.bigBoss,
+        this.bigBoss = [],
         this.dragonArmy,
         this.flyingBombs = [],
         this.bgImg.src ='images/bgImg.png',
@@ -29,15 +29,28 @@ class Game {
     }
     bigBossAppear(){
         this.bigBossIntervalId = setInterval(()=>{
-            this.bigBoss = new BigBoss(this.myCanvas, 50 + Math.floor(Math.random()*400));
-                this.bigBossSound.play();
-                this.showBigBoss = true;
+            
+        if(this.level > 3){
+            let newBigBoss = new BigBoss(this.myCanvas, 1000, 20 + Math.floor(Math.random()*30));
+            this.bigBoss.push(newBigBoss);
+            newBigBoss = new BigBoss(this.myCanvas, 1000, 260 + Math.floor(Math.random()*120));
+            this.bigBoss.push(newBigBoss);
+        }
+        else{
+            let newBigBoss = new BigBoss(this.myCanvas, 1000, 50 + Math.floor(Math.random()*400));
+            this.bigBoss.push(newBigBoss);
+        }
+                
+        this.bigBossSound.play();
+        this.showBigBoss = true;
             
         },30000);
     }
     bigBossFigth(){
-        this.bigBoss.draw();
-        this.bigBoss.move();
+        for(let i=0; i<this.bigBoss.length; i++){
+            this.bigBoss[i].draw();
+            this.bigBoss[i].move();
+        }
     }
     drawCanvas(){
         let theGameDiv = document.createElement('div');
@@ -86,15 +99,18 @@ class Game {
         if (this.showBigBoss){
             this.bigBossFigth();
             //Check the BB lives:
-            if(this.bigBoss.positionX <= 5) {this.gameOver();}
-            if(this.bigBoss.numberOfLives === 0){
-                this.bigBoss.bombExplosion();
-                this.bigBoss.draw();
-                this.expSound.play();
-                //for(let i=0; i<this.flyingBombs.length; i++)this.flyingBombs[i].bombExplosion(); //Uncoment in case you want to won at level 4
-                //if(this.level === 4)this.gameWon(); //Uncoment in case you want to won at level 4
-                this.level ++;
-                this.showBigBoss = false;
+            for(let i=0; i<this.bigBoss.length; i++){
+                if(this.bigBoss[i].positionX <= 5) {this.gameOver();}
+                if(this.bigBoss[i].numberOfLives === 0){
+                    this.bigBoss[i].bombExplosion();
+                    this.bigBoss[i].draw();
+                    this.bigBoss.splice(i,1);
+                    this.expSound.play();
+                    //for(let i=0; i<this.flyingBombs.length; i++)this.flyingBombs[i].bombExplosion(); //Uncoment in case you want to won at level 4
+                    //if(this.level === 4)this.gameWon(); //Uncoment in case you want to won at level 4
+                    this.level ++;
+                    this.showBigBoss = false;
+                }
             }
         }
         //Flying bombs managing 
@@ -104,10 +120,11 @@ class Game {
             let newBombPosition = 700 + this.level*50;
             if(this.flyingBombs[i].positionX == newBombPosition){
                 this.addFlyingBomb();
-                console.log(newBombPosition)
             }
             if(this.flyingBombs[i].positionX == 1){this.dragon.dragonLives -= 1;}
         }
+        let randomApp = Math.floor(Math.random()*5000);
+        if(randomApp == 1){this.addFlyingBomb();}
         //dragon breath and flying bomb reached
         for(let i=0; i < this.dragon.breaths.length; i++){
             this.dragon.breaths[i].move();
@@ -123,10 +140,12 @@ class Game {
             }
             //BigBoss reached
             if(this.showBigBoss){
-                if((this.dragon.breaths[i].positionX >= this.bigBoss.positionX )
-                && (this.dragon.breaths[i].positionY + 40 >= this.bigBoss.positionY && this.dragon.breaths[i].positionY <= this.bigBoss.positionY + this.bigBoss.imgHeight)){
-                    this.dragon.breaths[i].collision();
-                    this.bigBoss.numberOfLives --;
+                for(let j=0; j<this.bigBoss.length; j++){
+                    if((this.dragon.breaths[i].positionX >= this.bigBoss[j].positionX )
+                    && (this.dragon.breaths[i].positionY + 40 >= this.bigBoss[j].positionY && this.dragon.breaths[i].positionY <= this.bigBoss[j].positionY + this.bigBoss[j].imgHeight)){
+                        this.dragon.breaths[i].collision();
+                        this.bigBoss[j].numberOfLives --;
+                    }
                 }
             }
         }

@@ -18,7 +18,7 @@ class FlyingBomb {
         this.positionX !=0 && !this.bombDestroyed? this.positionX -= this.posIncrement : this.bombExplosion();
     }
     bombExplosion(){
-        this.bombImg.src ='images/StartExplosion.png';
+        this.bombImg.src ='images/Explosion.png';
         this.imgWidth = 100;
         this.imgHeight = 100;
         this.bombDestroyed = true;

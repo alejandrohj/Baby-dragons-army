@@ -9,6 +9,7 @@ let mainDiv;
 let dragon;
 let game;
 let flyingBombs;
+let topThree =[];
 
 let bgImg = new Image();
 bgImg.src = 'images/bgImg.png';
@@ -27,7 +28,7 @@ function buildSplashScreen(){
         <p>Burn the bombs before them reach your mountain's home, be cafully these bombs have been sent by something.</p>
         <span>Arrow Up --> FlyUp</span><br>
         <span>Arrow Down --> FlyDown</span><br>
-        <span>Space --> Dragon breath</span><br>
+        <span>Arrrow Right --> Dragon breath</span><br>
         <span> q --> call The Dragon Army</span><br>
         <div class="startForm">
             <p>Name:</p>
@@ -51,14 +52,16 @@ function buildGameOverScreen(){
         <p>Remember : Burn the bombs before them reach you, be cafully these bombs have been sent by something.</p>
         <span>Arrow Up --> FlyUp</span><br>
         <span>Arrow Down --> FlyDown</span><br>
-        <span>Space --> Dragon breath</span><br>
+        <span>Arrrow Right --> Dragon breath</span><br>
         <span> q --> call The Dragon Army</span><br>
         <div class="startForm">
             <p>Name:</p>
             <input id="playerName">
             <button class="btn restart">RESTART!</button>
-        </div>`;
+        </div>
+        <ul class=".topThree"></ul>`;
     generalDiv.appendChild(mainDiv);
+    //topThreePlayersUpdate(playerName.value,game.level);
     document.querySelector('.btn.restart').addEventListener('click',()=>{
         generalDiv.innerHTML = "";
         requestAnimationFrame(buildGameScreen);
@@ -86,6 +89,32 @@ function buildGameOverScreen(){
 //         generalDiv.innerHTML = "";
 //         requestAnimationFrame(buildGameScreen);
 //     });
+// }
+
+// function topThreePlayersUpdate(player, level){
+//     let newPlayer = {
+//         name: player,
+//         levelReached: level,
+//         playDate: new Date()
+//     }
+//     let topThreeList = document.querySelector('.topThree');
+//     let newListMember = document.createElement('li');
+//     if(topThree == 0){
+//         topThree[0] = newPlayer;
+//         newListMember.innerText = `${topThree[0].name}: level reached: ${topThree[0].levelReached} Date: ${topThree[0].playDate}`;
+//     }
+//     else{
+//         for(let i=0; i<topThree.length; i++){
+//             if(topThree[i].levelReached < level) {
+//                 topThree.unshift(newPlayer);
+//                 topThree.pop();
+//                 newListMember.innerText = `${topThree[i].name}: level reached: ${topThree[i].levelReached} Date: ${topThree[i].playDate}`;
+//                 topThreeList.appendChild(newListMember);
+//                 break;
+//             }
+//         }
+//     }
+
 // }
 //#endregion Methods
 

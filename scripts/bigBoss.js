@@ -1,9 +1,9 @@
 class BigBoss {
-    constructor(canvas, positionY){
+    constructor(canvas, positionX, positionY){
         this.canvas = canvas,
         this.ctx = canvas.getContext('2d'),
         this.bombImg = new Image(),
-        this.positionX = 1000,
+        this.positionX = positionX,
         this.positionY = positionY,
         this.imgWidth = 280,
         this.imgHeight = 160,
