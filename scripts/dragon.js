@@ -13,6 +13,7 @@ class Dragon {
         this.dbreathSound.src = 'sounds/dragonBreath.wav',
         this.breaths = [],
         this.fly = true,
+        this.reload = true,
         this.dragonsIntervalId = setInterval(()=>{
             this.DragonImgUp.src = this.fly ? 'images/DragonBlue1.png' : 'images/DragonBlue2.png'
             this.fly = !this.fly
@@ -34,13 +35,19 @@ class Dragon {
         });
     }
     breath(){
-        document.addEventListener('keydown',(event)=>{
-            if(event.key === 'ArrowRight') { 
-                let newBreath = new DragonBreath(this.ctx,this.positionX,this.positionY);
-                this.breaths.push(newBreath);
-                this.dbreathSound.play();
-            }
-        });
+            document.addEventListener('keydown',(event)=>{
+                if(event.key === 'ArrowRight') { 
+                    if(this.reload){
+                        let newBreath = new DragonBreath(this.ctx,this.positionX,this.positionY);
+                        this.breaths.push(newBreath);
+                        this.dbreathSound.play();
+                        setTimeout(()=>{
+                            this.reload = true;
+                        },1000);
+                        this.reload = false;
+                    }
+                }
+            });
     }
     drawLive(numberOfLives){
         for(let i=0; i<numberOfLives; i++){

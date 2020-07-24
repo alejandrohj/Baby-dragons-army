@@ -124,16 +124,13 @@ function topThreePlayersUpdate(player, level){
                     topThree.pop();
                     playerAdded = true;
             }
-            console.log(topThree);
             let name = topThree[i].name;
             let levelP = topThree[i].levelReached;
             let date = topThree[i].playDate;
             let fixedDate = new Date(date).toJSON().slice(0, 10)
             let newListMember = document.createElement('li');
             newListMember.innerText = `${name}: level reached: #${levelP}# Date: ${fixedDate}`;
-            console.log(newListMember);
             topThreeList.appendChild(newListMember);
-            console.log(topThreeList)
         }
     }
     localStorage.clear();
