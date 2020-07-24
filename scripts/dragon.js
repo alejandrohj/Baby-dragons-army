@@ -43,7 +43,7 @@ class Dragon {
                         this.dbreathSound.play();
                         setTimeout(()=>{
                             this.reload = true;
-                        },1000);
+                        },500);
                         this.reload = false;
                     }
                 }

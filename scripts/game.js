@@ -142,7 +142,7 @@ class Game {
             this.flyingBombs[i].draw();
             this.flyingBombs[i].move();
             let newBombPosition = 750 + this.level*25;
-            if(this.flyingBombs[i].positionX <= newBombPosition+(this.level - 1) * 0.25 && this.flyingBombs[i].positionX >= newBombPosition-(this.level - 1) * 0.25 && this.level < 4){
+            if(this.flyingBombs[i].positionX <= newBombPosition+(this.level - 1) * 0.26 && this.flyingBombs[i].positionX >= newBombPosition-(this.level - 1) * 0.26 && this.level < 4){
                 this.addFlyingBomb();
             }
             else if(this.level >=4 && this.flyingBombs[i].positionX <= newBombPosition+(this.level - 2) * 0.25 && this.flyingBombs[i].positionX >= newBombPosition-(this.level - 2) * 0.25){
